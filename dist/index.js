@@ -30,13 +30,19 @@ function onLoad() {
   video.width = window.innerWidth;
   video.height = window.innerHeight;
   video.loop = true;
-  video.muted = true;
+  video.muted = false;
   video.src = "./assets/video.mp4";
   video.crossOrigin = "";
   video.setAttribute("webkit-playsinline", "true");
   video.setAttribute("playsinline", "true");
   video.load();
-  video.play();
+  const videoPromise = video.play();
+
+  if (videoPromise !== undefined) {
+    videoPromise.then((_) => {
+      video.volume = 0.6;
+    });
+  }
 
   //create video texture and add the video element to it.
   videoTexture = new THREE.VideoTexture(video);
@@ -55,7 +61,7 @@ function onLoad() {
   //create material of the sky and add the video to the material
   var materialSky = new THREE.MeshBasicMaterial({
     map: videoTexture,
-    side: THREE.DoubleSide
+    side: THREE.DoubleSide,
   });
   meshSky = new THREE.Mesh(geometrySky, materialSky);
   meshSky.rotation.y = Math.PI / 2;
