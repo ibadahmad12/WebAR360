@@ -36,13 +36,7 @@ function onLoad() {
   video.setAttribute("webkit-playsinline", "true");
   video.setAttribute("playsinline", "true");
   video.load();
-  const videoPromise = video.play();
-
-  if (videoPromise !== undefined) {
-    videoPromise.then((_) => {
-      video.volume = 0.6;
-    });
-  }
+  video.play();
 
   //create video texture and add the video element to it.
   videoTexture = new THREE.VideoTexture(video);
