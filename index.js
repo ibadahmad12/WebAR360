@@ -30,13 +30,17 @@ function onLoad() {
   video.width = window.innerWidth;
   video.height = window.innerHeight;
   video.loop = true;
-  video.muted = true;
+  video.muted = false;
   video.src = "./assets/video.mp4";
   video.crossOrigin = "";
   video.setAttribute("webkit-playsinline", "true");
   video.setAttribute("playsinline", "true");
   video.load();
   video.play();
+
+  document.body.addEventListener("mousemove", function () {
+    video.muted = false;
+  });
 
   //create video texture and add the video element to it.
   videoTexture = new THREE.VideoTexture(video);
