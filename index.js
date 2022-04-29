@@ -30,7 +30,7 @@ function onLoad() {
   video.width = window.innerWidth;
   video.height = window.innerHeight;
   video.loop = true;
-  video.muted = false;
+  video.muted = true;
   video.src = "./assets/video.mp4";
   video.crossOrigin = "";
   video.setAttribute("webkit-playsinline", "true");
