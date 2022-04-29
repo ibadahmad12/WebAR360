@@ -36,10 +36,8 @@ function onLoad() {
   video.setAttribute("webkit-playsinline", "true");
   video.setAttribute("playsinline", "true");
   video.load();
-  video.play();
-
-  document.body.addEventListener("mousemove", function () {
-    video.muted = false;
+  video.play().then(() => {
+    video.mute = false;
   });
 
   //create video texture and add the video element to it.
