@@ -1,40 +1,28 @@
 <!DOCTYPE html>
 
 <html lang="en">
-  <head>
-    <title>360 Video WebVR 0.5</title>
-    <meta charset="utf-8" />
-    <!--Check out why viewport meta is important. https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag-->
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <style>
-      #vr-container {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 100%;
-        background-color: #000;
-        color: #fff;
-        margin: 0px;
-        padding: 0px;
-        overflow: hidden;
-      }
-      canvas {
-        width: 100%;
-        height: 100%;
-      }
-    </style>
-  </head>
+    <head>
+        <title>360 Video WebVR</title>
+        <meta charset="utf-8" />
+        <!--Check out why viewport meta is important. https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag-->
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-  <body>
-    <div id="vr-container"></div>
-  </body>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
 
-  <!--three.js 3d library-->
-  <script type="module" src="index.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/threejs/r83/three.min.js"></script>
-  <script src="scripts/OrbitControls.js"></script>
+    <body>
+        <div id="vr-container">
+            <div class="button-wrapper">
+                <button id="switch-vid-btn">Switch Video</button>
+            </div>
+        </div>
+    </body>
+
+    <!--three.js 3d library-->
+    <script type="module" src="index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/threejs/r83/three.min.js"></script>
+    <script src="scripts/OrbitControls.js"></script>
 </html>

@@ -1,9 +1,13 @@
 {
   "dependencies": {
     "gh-pages": "^3.2.3",
-    "http-server": "^14.1.0"
+    "http-server": "^14.1.0",
+    "vite": "^2.9.8"
   },
   "scripts": {
-    "deploy" : "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "dev": "vite /dist/index.html",
+    "build": "vite build",
+    "preview": "vite preview" 
   }
 }
