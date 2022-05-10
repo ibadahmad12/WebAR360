@@ -6,8 +6,8 @@
   },
   "scripts": {
     "deploy": "gh-pages -d dist",
-    "dev": "vite /dist/index.html",
+    "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview" 
+    "preview": "vite preview"
   }
 }
