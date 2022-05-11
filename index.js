@@ -9,6 +9,8 @@ var video = document.createElement("video");
 var videoTexture;
 var orbitController;
 
+var range = 0;
+
 function onLoad() {
     // Setup three.js WebGL renderer.
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -29,13 +31,39 @@ function onLoad() {
     video.height = window.innerHeight;
     video.loop = true;
     video.muted = true;
-    video.src = "/assets/video.mp4";
 
-    video.crossOrigin = "";
-    video.setAttribute("webkit-playsinline", "true");
-    video.setAttribute("playsinline", "true");
-    video.load();
-    video.play();
+    // creating the MediaSource, just with the "new" keyword, and the URL for it
+    let videoSourceBuffer;
+
+    const myMediaSource = new MediaSource();
+    const url = URL.createObjectURL(myMediaSource);
+    video.src = url;
+
+    myMediaSource.addEventListener("sourceopen", () => {
+        videoSourceBuffer = myMediaSource.addSourceBuffer('video/mp4; codecs="avc1.64001e"');
+    });
+
+    fetchSegment("http://localhost:8000/video").then(function (videoData1) {
+        videoSourceBuffer.appendBuffer(videoData1);
+        const blob = new Blob([videoData1]);
+        video.src = URL.createObjectURL(blob);
+        video.crossOrigin = "";
+        video.setAttribute("webkit-playsinline", "true");
+        video.setAttribute("playsinline", "true");
+        video.load();
+        video
+            .play()
+            .then(function () {
+                range = range + 10000000;
+                return fetchSegment("http://localhost:8000/video");
+            })
+            .then(function (videoData2) {
+                videoSourceBuffer.appendBuffer(videoData2);
+                // const blob = new Blob([audioSegment1]);
+                // video.src = URL.createObjectURL(blob);
+                // video.play();
+            });
+    });
 
     document.getElementById("switch-vid-btn").addEventListener("click", () => {
         video.src = video.src.split("/")[video.src.split("/").length - 1] === "video.mp4" ? "/assets/maverick.mp4" : "/assets/video.mp4";
@@ -69,9 +97,8 @@ function onLoad() {
 }
 
 function animate() {
-    meshSky.rotation.y += 0.0004; //rotate automatically
+    meshSky.rotation.y += 0.0004;
 
-    // Render the scene.
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
 }
@@ -79,6 +106,16 @@ function animate() {
 function onResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
+}
+
+async function fetchSegment(url) {
+    const response = await fetch(url, {
+        headers: {
+            video: "video.mp4",
+            range,
+        },
+    });
+    return await response.arrayBuffer();
 }
 
 window.addEventListener("load", onLoad);
